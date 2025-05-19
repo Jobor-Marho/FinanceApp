@@ -20,7 +20,7 @@ const Search = ({ onSearch, search, onChange, error }: Props) => {
       <form className="search" onSubmit={onSearch}>
         <input
           type="text"
-          placeholder="Search for a company..."
+          placeholder="Search for a stock..."
           value={search}
           onChange={onChange}
         />

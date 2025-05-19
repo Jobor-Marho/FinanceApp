@@ -1,3 +1,4 @@
+import DeletePortfolio from "../DeletePortfolio/DeletePortfolio";
 import "./CardPorfolio.css"
 
 interface  Props {
@@ -9,11 +10,10 @@ interface  Props {
 const CardPortfolio = ({portfolioDeleteHandler, portfolioValue, name}: Props) => {
   return (
     <>
-        <form className="CardPortfolio" onSubmit={portfolioDeleteHandler}>
-            <h2>{name}</h2>
-            <input type="text" hidden={true} readOnly={true} value={portfolioValue} name="symbol"/>
-            <button type="submit" className="delete">Delete</button>
-        </form>
+    <div className="CardPortfolio">
+      <h2>{name}</h2>
+      <DeletePortfolio portfolioDeleteHandler={portfolioDeleteHandler} portfolioValue={portfolioValue}/>
+    </div>
     </>
   )
 }

@@ -13,7 +13,7 @@ const ListPortfolio = ({ porfolioList, portfolioDeleteHandler }: Props) => {
       <>
         <h1 className="text-2xl font-bold text-center my-6">My Portfolio</h1>
 
-        <div className="ListPortfolio mx-auto">
+        <div className="ListPortfolio">
           {porfolioList.length > 0 ? (
             porfolioList.map((item) => (
               <CardPortfolio
