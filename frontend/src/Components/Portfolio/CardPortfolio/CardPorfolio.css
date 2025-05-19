@@ -1,0 +1,33 @@
+.CardPortfolio{
+
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 16px;
+    transition: transform 0.2s;
+    width: 300px;
+    padding: 50PX;
+
+}
+.CardPortfolio:hover {
+    transform: scale(1.05);
+}
+.CardPortfolio h2{
+    margin-bottom: 16px;
+}
+.CardPortfolio .delete{
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.CardPortfolio .delete:hover{
+    background-color: #ff1a1a;
+}

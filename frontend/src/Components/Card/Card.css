@@ -1,0 +1,37 @@
+.Card{
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 16px;
+    transition: transform 0.2s;
+    Width: 400px;
+    padding: 50PX;
+
+}
+.Card:hover {
+    transform: scale(1.05);
+}
+.Card h1 {
+    font-size: 1.3em;
+    margin-bottom: 16px;
+}
+.Card h2 {
+    font-size:1em;
+    margin-bottom: 8px;
+}
+.Card .description{
+    font-size: .9rem;
+    color: #555;
+    text-align: justify;
+}
+.Card img {
+    width: 50%;
+    height: auto;
+    border-radius: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
