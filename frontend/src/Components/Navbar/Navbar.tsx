@@ -15,11 +15,11 @@ const Navbar = (props: Props) => {
             </a>
           </div>
         </div>
-        <div className="hidden lg:flex items-center space-x-6 text-back">
+        <div className="hidden lg:flex items-center space-x-6 text-black">
           <div className="hover:text-darkBlue">Login</div>
           <a
             href=""
-            className="px-8 py-3 font-bold rounded text-white bg-lightGreen hover:opacity-70"
+            className="px-8 py-3 font-bold rounded text-white bg-green-600 hover:opacity-70"
           >
             Signup
           </a>

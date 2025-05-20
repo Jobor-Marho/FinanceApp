@@ -17,6 +17,4 @@
 .CardPortfolio:hover {
     transform: scale(1.05);
 }
-.CardPortfolio h2{
-    margin-bottom: 16px;
-}
+

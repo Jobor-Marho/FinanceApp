@@ -1,7 +1,8 @@
-import "./ListPortfolio.css";
+
 import { v4 as uuid } from "uuid";
 import type { CompanySearch } from "../../../company.d";
 import CardPortfolio from "../CardPortfolio/CardPortfolio";
+import "./ListPortfolio.css"
 
 interface Props {
   porfolioList: CompanySearch[];
@@ -10,10 +11,14 @@ interface Props {
 
 const ListPortfolio = ({ porfolioList, portfolioDeleteHandler }: Props) => {
     return (
-      <>
-        <h1 className="text-2xl font-bold text-center my-6">My Portfolio</h1>
+
+      <section id="portfolio">
+        <h2 className="mb-3 mt-3 text-3xl font-semibold text-center md:text-4xl">
+          My Portfolio
+        </h2>
 
         <div className="ListPortfolio">
+          <>
           {porfolioList.length > 0 ? (
             porfolioList.map((item) => (
               <CardPortfolio
@@ -24,10 +29,14 @@ const ListPortfolio = ({ porfolioList, portfolioDeleteHandler }: Props) => {
               />
             ))
           ) : (
-            <h1 className="noResults mx-auto italic">No portfolio found 🥹</h1>
-          )}
+            <p className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl mx-auto">
+              No portfolio found 🥹
+            </p>
+         )}
+          </>
         </div>
-      </>
+      </section>
+
     );
   };
 

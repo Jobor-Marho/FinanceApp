@@ -1,6 +1,5 @@
 import type { CompanySearch, Dummies } from "../../company.d";
 import Card from "../Card/Card";
-import AddPortfolio from "../Portfolio/AddPortfolio/AddPortfolio";
 import "./CardList.css";
 import { v4 as uuid } from "uuid";
 
@@ -14,7 +13,7 @@ const CardList = ({ searchResults, portfolioCreateHandler }: Props) => {
   return (
     <>
         <h1 className="text-2xl font-bold text-center my-6">Search Results</h1>
-        <div className="CardList">
+        <div className="CardList ">
         {/* using map */}
         {searchResults.length > 0 ? (
             searchResults.map((result) => (
@@ -29,7 +28,9 @@ const CardList = ({ searchResults, portfolioCreateHandler }: Props) => {
             ))
 
         ) : (
-            <h1 className="noResults mx-auto italic">No data found 🥹</h1>
+            <p className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">
+              No data found 🥹
+            </p>
         )}
 
         </div>

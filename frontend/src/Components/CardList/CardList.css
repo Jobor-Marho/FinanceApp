@@ -1,17 +1,12 @@
-.CardList{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-
+.search button{
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    position: relative;
 }
-.error{
-    text-align: center;
-}
-
-.CardList .noResults{
-
-    color: #888;
-
+.search button:hover{
+    background-color: #0056b3;
 }

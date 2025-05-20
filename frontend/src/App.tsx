@@ -1,6 +1,8 @@
 import { searchCompanies, type SearchResponse } from "./api";
 import type { CompanySearch, Dummies } from "./company.d";
 import CardList from "./Components/CardList/CardList";
+import Hero from "./Components/Hero/Hero";
+import Navbar from "./Components/Navbar/Navbar";
 import ListPortfolio from "./Components/Portfolio/ListPortfolio/ListPortfolio";
 import Search from "./Components/Search/Search";
 import { useState } from "react";
@@ -75,6 +77,7 @@ function App() {
     }
   };
 
+  // For Portfolio Component
   const portfolioCreateHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -89,6 +92,8 @@ function App() {
     }
   };
 
+
+  // For Portfolio Component
   const portfolioDeleteHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -101,6 +106,9 @@ function App() {
   };
   return (
     <>
+    <Navbar/>
+    {/* <Hero /> */}
+
       <Search
         search={searchValue}
         onChange={handleSeachValue}
