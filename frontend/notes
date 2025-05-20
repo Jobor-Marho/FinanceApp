@@ -1,13 +1,13 @@
-Basically when i started this project a I made some installs.
-- I Installed create-react-app with:
--> npm install create-react-app
+I used Vite
 
-- I Setup my project directory with:
--> npx create-react-app frontend --template typescript
-where "frontend" is the name of my directory "--template typscript" is the temaplate I Wanna use. In this case typescript.
+Basically when i started this project a I made some installs.
+- I Installed initialized the project with:
+-> npm create vite@latest frontend -- --template react-ts
+
+where "frontend" is the name of my directory "--template react-ts" is the temaplate I Wanna use. In this case typescript.
 
 - Ran my project using:
--> npm start
+-> npm run dev
 
 
 Then I also installed some modules inorder to integrate the ability to consume APIs. One was Axios:
@@ -16,3 +16,12 @@ Then I also installed some modules inorder to integrate the ability to consume A
 
 Also installed a module for handling my env data:
 -> npm install dotenv --save
+
+I installed uuid  for integrating assigning unique key for item in map object
+-> npm insatll uuid
+
+I installed tailwind css(v.4.1.7) for integrating styling
+-> npm install tailwindcss @tailwindcss/vite
+
+Installed react-router-dom( since the project is a web app)
+-> npm install react-router-dom
