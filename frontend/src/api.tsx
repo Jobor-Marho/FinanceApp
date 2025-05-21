@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { CompanySearch } from "./company.d";
+import { type CompanyProfile, type CompanySearch } from "./company.d";
 
 export interface SearchResponse {
   data: CompanySearch[];
@@ -12,7 +12,7 @@ export const searchCompanies = async (query: string): Promise<CompanySearch[]> =
         import.meta.env.VITE_API_KEY
       }`
     );
-    
+
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -25,6 +25,22 @@ export const searchCompanies = async (query: string): Promise<CompanySearch[]> =
   }
 };
 
+
+export const getCompanyProfile = async (query: string) =>{
+  try{
+    const response = await axios.get<any>(
+      `https://financialmodelingprep.com/stable/profile?symbol=${query}&apikey=${
+        import.meta.env.VITE_API_KEY}`
+    );
+    console.log( `https://financialmodelingprep.com/stable/profile?symbol=${query}&apikey=${
+        import.meta.env.VITE_API_KEY}`);
+    console.log("response: ", response);
+    return response;
+  }
+  catch (error: any){
+    console.log("error message: ", error.message);
+  }
+}
 //Generate image URL based on the company name
 export const generateImageUrl = (companyName: string) => {
   const encodedName = encodeURIComponent(companyName.trim());

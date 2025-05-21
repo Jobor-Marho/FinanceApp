@@ -1,3 +1,4 @@
+import "./Search.css";
 interface Props {
   onSearch: (e: React.FormEvent<HTMLFormElement>) => void;
   search: string;
@@ -24,7 +25,7 @@ const Search = ({ onSearch, search, onChange, error }: Props) => {
               placeholder="Search for a stock..."
               value={search}
               onChange={onChange}
-              className="flex-1 w-full p-3 border-40 border-gray-300 rounded-lg placeholder-black focus:outline-none focus:ring-2 focus:ring-green-600  transition duration-200"
+              className="flex-1 w-full p-3 border-40 border-gray-300 rounded-lg placeholder-black focus:outline-none focus:ring-2 focus:ring-green-600  transition duration-200 myinput"
             />
 
 

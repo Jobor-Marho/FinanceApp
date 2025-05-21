@@ -11,6 +11,9 @@
     border: 1px solid #ccc;
     margin-right: 10px;
 }
+.search input::placeholder{
+    font-style: italic;
+}
 .search button{
     padding: 10px 20px;
     border-radius: 5px;
@@ -39,5 +42,5 @@
 
 .search button:active{
     transform: scale(0.95);
-    
+
 }
