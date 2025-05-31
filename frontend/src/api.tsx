@@ -1,11 +1,17 @@
 import axios from "axios";
-import { type CompanyProfile, type CompanySearch } from "./company.d";
+import {
+  type CompanyKeyMetrics,
+  type CompanyProfile,
+  type CompanySearch,
+} from "./company.d";
 
 export interface SearchResponse {
   data: CompanySearch[];
 }
 
-export const searchCompanies = async (query: string): Promise<CompanySearch[]> => {
+export const searchCompanies = async (
+  query: string
+): Promise<CompanySearch[]> => {
   try {
     const response = await axios.get<CompanySearch[]>(
       `https://financialmodelingprep.com/stable/search-symbol?query=${query}&apikey=${
@@ -25,19 +31,32 @@ export const searchCompanies = async (query: string): Promise<CompanySearch[]> =
   }
 };
 
-
-export const getCompanyProfile = async (query: string) =>{
-  try{
+export const getCompanyProfile = async (query: string) => {
+  try {
     const response = await axios.get<any>(
       `https://financialmodelingprep.com/stable/profile?symbol=${query}&apikey=${
-        import.meta.env.VITE_API_KEY}`
+        import.meta.env.VITE_API_KEY
+      }`
     );
     return response;
-  }
-  catch (error: any){
+  } catch (error: any) {
     console.log("error message: ", error.message);
   }
-}
+};
+
+export const getCompanyMetrics = async (query: string) => {
+  try {
+    const res = await axios.get<CompanyKeyMetrics[]>(
+      `https://financialmodelingprep.com/stable/ratios-ttm?symbol=${query}&apikey=${
+        import.meta.env.VITE_API_KEY
+      }`
+    );
+
+    return res;
+  } catch (error: any) {
+    console.log("error message: ", error.message);
+  }
+};
 //Generate image URL based on the company name
 export const generateImageUrl = (companyName: string) => {
   const encodedName = encodeURIComponent(companyName.trim());
