@@ -1,29 +1,18 @@
 import { testIncomeStatementData } from "./TestData";
-
+import { v4 as uuid } from "uuid";
 const data = testIncomeStatementData;
 
-interface Props {}
+interface Props {
+  data?: any;
+  config?: any;
+}
 
-type Company = (typeof data)[0];
-
-// This is a configuration object for the table headers
-const configs = [
-  {
-    Label: "Year",
-    render: (company: Company) => company.acceptedDate,
-  },
-  {
-    Label: "Revenue",
-    render: (company: Company) => company.revenue,
-  },
-];
-
-const Table = (props: Props) => {
+const Table = ({ data, config }: Props) => {
   // This component renders a table's rows based on the provided data and configuration.
-  const renderedRows = data.map((company) => {
+  const renderedRows = data.map((company: any) => {
     return (
       <tr key={company.cik}>
-        {configs.map((val: any) => {
+        {config.map((val: any) => {
           return (
             <td className="p-4 whitespace-nowrap text-sm text-gray-900 font-light">
               {val.render(company)}
@@ -35,13 +24,13 @@ const Table = (props: Props) => {
   });
 
   // This component renders the table headers based on the configuration object
-  const renderHeaders = configs.map((config: any) => {
+  const renderHeaders = config.map((config: any) => {
     return (
       <th
         className="p-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-        key={config.Label}
+        key={uuid()}
       >
-        {config.Label}
+        {config.label}
       </th>
     );
   });
@@ -59,4 +48,3 @@ const Table = (props: Props) => {
 };
 
 export default Table;
-  

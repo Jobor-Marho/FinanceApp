@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  type CompanyIncomeStatement,
   type CompanyKeyMetrics,
   type CompanyProfile,
   type CompanySearch,
@@ -52,6 +53,19 @@ export const getCompanyMetrics = async (query: string) => {
       }`
     );
 
+    return res;
+  } catch (error: any) {
+    console.log("error message: ", error.message);
+  }
+};
+
+export const getIncomeStatement = async (query: string) => {
+  try {
+    const res = axios.get<CompanyIncomeStatement[]>(`
+      https://financialmodelingprep.com/stable/income-statement?symbol=${query}&apikey=${
+      import.meta.env.VITE_API_KEY
+    }
+      `);
     return res;
   } catch (error: any) {
     console.log("error message: ", error.message);
