@@ -27,7 +27,7 @@ const Card = ({
         <img src={imageUrl} alt="stockimage" />
         <Link
           to={`/company/${ticker}`}
-          className="font-bold text-center text-black md:text-left"
+          className="font-bold text-center text-black md:text-left hover:text-blue-500 transition duration-300"
         >
           {companyName} - {ticker}
         </Link>

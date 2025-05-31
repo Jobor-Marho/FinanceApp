@@ -32,9 +32,6 @@ export const getCompanyProfile = async (query: string) =>{
       `https://financialmodelingprep.com/stable/profile?symbol=${query}&apikey=${
         import.meta.env.VITE_API_KEY}`
     );
-    console.log( `https://financialmodelingprep.com/stable/profile?symbol=${query}&apikey=${
-        import.meta.env.VITE_API_KEY}`);
-    console.log("response: ", response);
     return response;
   }
   catch (error: any){
