@@ -2,7 +2,7 @@ import axios from "axios";
 import {
   type CompanyIncomeStatement,
   type CompanyKeyMetrics,
-  type CompanyProfile,
+  type CompanyBalanceSheet,
   type CompanySearch,
 } from "./company.d";
 
@@ -71,6 +71,32 @@ export const getIncomeStatement = async (query: string) => {
     console.log("error message: ", error.message);
   }
 };
+
+export const getBalanceSheet = async (query: string) => {
+  try {
+    const res = axios.get<CompanyBalanceSheet[]>(
+      `https://financialmodelingprep.com/stable/balance-sheet-statement?symbol=${query}&apikey=${
+        import.meta.env.VITE_API_KEY
+      }`
+    );
+    return res;
+  } catch (error: any) {
+    console.log("Error Msg: ", error.message);
+  }
+};
+export const getCashflowStatement = async (query: string) => {
+  try {
+    const res = axios.get<CompanyBalanceSheet[]>(
+      `https://financialmodelingprep.com/stable/cash-flow-statement?symbol=${query}&apikey=${
+        import.meta.env.VITE_API_KEY
+      }`
+    );
+    return res;
+  } catch (error: any) {
+    console.log("Error Msg: ", error.message);
+  }
+};
+
 //Generate image URL based on the company name
 export const generateImageUrl = (companyName: string) => {
   const encodedName = encodeURIComponent(companyName.trim());
