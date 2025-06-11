@@ -4,12 +4,14 @@ import {
   type CompanyKeyMetrics,
   type CompanyBalanceSheet,
   type CompanySearch,
+  type CompanyCashFlow,
 } from "./company.d";
 
 export interface SearchResponse {
   data: CompanySearch[];
 }
 
+// API to Seacrh for a Company
 export const searchCompanies = async (
   query: string
 ): Promise<CompanySearch[]> => {
@@ -32,6 +34,7 @@ export const searchCompanies = async (
   }
 };
 
+// Company Profile API
 export const getCompanyProfile = async (query: string) => {
   try {
     const response = await axios.get<any>(
@@ -45,6 +48,7 @@ export const getCompanyProfile = async (query: string) => {
   }
 };
 
+// Company statement API
 export const getCompanyMetrics = async (query: string) => {
   try {
     const res = await axios.get<CompanyKeyMetrics[]>(
@@ -59,6 +63,7 @@ export const getCompanyMetrics = async (query: string) => {
   }
 };
 
+//Income Statement API
 export const getIncomeStatement = async (query: string) => {
   try {
     const res = axios.get<CompanyIncomeStatement[]>(`
@@ -72,6 +77,7 @@ export const getIncomeStatement = async (query: string) => {
   }
 };
 
+//BalanceSheet API
 export const getBalanceSheet = async (query: string) => {
   try {
     const res = axios.get<CompanyBalanceSheet[]>(
@@ -84,9 +90,11 @@ export const getBalanceSheet = async (query: string) => {
     console.log("Error Msg: ", error.message);
   }
 };
+
+//CashFlow Statement API
 export const getCashflowStatement = async (query: string) => {
   try {
-    const res = axios.get<CompanyBalanceSheet[]>(
+    const res = axios.get<CompanyCashFlow[]>(
       `https://financialmodelingprep.com/stable/cash-flow-statement?symbol=${query}&apikey=${
         import.meta.env.VITE_API_KEY
       }`
@@ -97,7 +105,7 @@ export const getCashflowStatement = async (query: string) => {
   }
 };
 
-//Generate image URL based on the company name
+// API to Generate image URL based on the company name
 export const generateImageUrl = (companyName: string) => {
   const encodedName = encodeURIComponent(companyName.trim());
   return `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&bold=true`;

@@ -212,10 +212,11 @@ export interface CompanyCashFlow {
   symbol: string;
   reportedCurrency: string;
   cik: string;
-  fillingDate: string;
+  filingDate: string;
   acceptedDate: string;
-  calendarYear: string;
+  fiscalYear: string; // was `calendarYear`
   period: string;
+
   netIncome: number;
   depreciationAndAmortization: number;
   deferredIncomeTax: number;
@@ -225,20 +226,33 @@ export interface CompanyCashFlow {
   inventory: number;
   accountsPayables: number;
   otherWorkingCapital: number;
-  otherNonCashItems: number;
+  otherNonCashItems?: number;
+
   netCashProvidedByOperatingActivities: number;
   investmentsInPropertyPlantAndEquipment: number;
   acquisitionsNet: number;
   purchasesOfInvestments: number;
   salesMaturitiesOfInvestments: number;
-  otherInvestingActivites: number;
-  netCashUsedForInvestingActivites: number;
-  debtRepayment: number;
-  commonStockIssued: number;
+  otherInvestingActivities: number; // was typo: `otherInvestingActivites`
+  netCashProvidedByInvestingActivities: number; // was typo: `netCashUsedForInvestingActivites`
+
+  netDebtIssuance?: number;
+  longTermNetDebtIssuance?: number;
+  shortTermNetDebtIssuance?: number;
+
+  netStockIssuance?: number;
+  netCommonStockIssuance?: number;
+  commonStockIssuance: number;
   commonStockRepurchased: number;
-  dividendsPaid: number;
-  otherFinancingActivites: number;
-  netCashUsedProvidedByFinancingActivities: number;
+
+  netPreferredStockIssuance?: number;
+  netDividendsPaid?: number;
+  commonDividendsPaid?: number;
+  preferredDividendsPaid?: number;
+
+  otherFinancingActivities: number; // was typo: `otherFinancingActivites`
+  netCashProvidedByFinancingActivities: number; // was `netCashUsedProvidedByFinancingActivities`
+
   effectOfForexChangesOnCash: number;
   netChangeInCash: number;
   cashAtEndOfPeriod: number;
@@ -246,9 +260,14 @@ export interface CompanyCashFlow {
   operatingCashFlow: number;
   capitalExpenditure: number;
   freeCashFlow: number;
-  link: string;
-  finalLink: string;
+
+  incomeTaxesPaid?: number;
+  interestPaid?: number;
+
+  link?: string;
+  finalLink?: string;
 }
+
 
 export interface CompanyKeyMetrics {
   revenuePerShareTTM: number;
