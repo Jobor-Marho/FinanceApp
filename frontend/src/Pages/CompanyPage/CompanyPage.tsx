@@ -7,6 +7,7 @@ import Sidebar from "../../Components/SideBar/Sidebar";
 import CompanyDashboard from "../../Components/CompanyDashBoard/CompanyDashboard";
 import Tile from "../../Components/Tile/Tile";
 import Spinners from "../../Components/Spinners/Spinners";
+import TenkFinder from "../../Components/TenKFinder/TenKFinder";
 
 interface Props {}
 
@@ -29,11 +30,18 @@ const CompanyPage = (props: Props) => {
         <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
           <Sidebar />
           <CompanyDashboard ticker={symbol!}>
+            {/* Flex children */}
             <Tile title="Company Name" subTitle={company.companyName} />
             <Tile title="Price" subTitle={company.price.toString()} />
             <Tile title="Sector" subTitle={company.sector} />
-            {/* <Tile title="DCF" subTitle={company.dcf.toString()} /> */}
-            <p className="bg-white text-justify mt-4 m-4 rounded text-gray-500">{company.description}</p>
+
+            {/* Non-flex child */}
+            <>
+              <TenkFinder ticker={company.symbol} />
+              <p className="bg-white text-justify mt-5 m-4 rounded text-gray-500">
+                {company.description}
+              </p>
+            </>
           </CompanyDashboard>
         </div>
       ) : (

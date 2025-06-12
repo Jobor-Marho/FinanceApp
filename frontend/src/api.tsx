@@ -5,7 +5,13 @@ import {
   type CompanyBalanceSheet,
   type CompanySearch,
   type CompanyCashFlow,
+  type CompanyTenK,
 } from "./company.d";
+
+const today = new Date();
+const from = new Date(today.getFullYear(), today.getMonth(), 1);
+const fromDate = from.toISOString().split("T")[0];
+const toDate = today.toISOString().split("T")[0];
 
 export interface SearchResponse {
   data: CompanySearch[];
@@ -105,6 +111,16 @@ export const getCashflowStatement = async (query: string) => {
   }
 };
 
+
+//SEC filings 10-k API
+export const getTenk = async (query: string) => {
+  try{
+    const res = axios.get<CompanyTenK[]>(`https://financialmodelingprep.com/stable/sec-filings-search/symbol?symbol=${query}&from=${fromDate}&to=${toDate}&page=0&limit=10&apikey=${import.meta.env.VITE_API_KEY}`);
+    return res;
+  } catch (error:any){
+    console.log("Error Msg: ", error.message);
+  }
+}
 // API to Generate image URL based on the company name
 export const generateImageUrl = (companyName: string) => {
   const encodedName = encodeURIComponent(companyName.trim());
