@@ -3,6 +3,8 @@ import type { CompanyBalanceSheet } from "../../company.d";
 import { useEffect, useState } from "react";
 import { getBalanceSheet } from "../../api";
 import RatioList from "../RatioList/RatioList";
+import Spinners from "../Spinners/Spinners";
+import './BalanceSheet.css'
 
 type Props = {};
 
@@ -82,11 +84,16 @@ const BalanceSheet = (props: Props) => {
 
   return (
     <>
+    <div id="bal-sheet">
       {balanceSheetReportData ? (
-        <RatioList data={balanceSheetReportData} config={config} />
+        <>
+          <h2 className="font-bold ms-4">Balance Sheet</h2>
+          <RatioList data={balanceSheetReportData} config={config} />
+        </>
       ) : (
-        <h2>Loading...</h2>
+        <Spinners />
       )}
+      </div>
     </>
   );
 };

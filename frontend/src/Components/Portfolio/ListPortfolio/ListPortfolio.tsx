@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import type { CompanySearch } from "../../../company.d";
 import CardPortfolio from "../CardPortfolio/CardPortfolio";
 import "./ListPortfolio.css"
+import Spinners from "../../Spinners/Spinners";
 
 interface Props {
   porfolioList: CompanySearch[];
@@ -32,6 +33,7 @@ const ListPortfolio = ({ porfolioList, portfolioDeleteHandler }: Props) => {
             <p className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl mx-auto">
               No portfolio found 🥹
             </p>
+
          )}
           </>
         </div>

@@ -3,6 +3,7 @@ import type { CompanyCashFlow } from "../../company.d";
 import { useEffect, useState } from "react";
 import { getCashflowStatement, getIncomeStatement } from "../../api";
 import Table from "../Table/Table";
+import Spinners from "../Spinners/Spinners";
 
 type Props = {};
 
@@ -43,7 +44,6 @@ const config = [
   },
 ];
 
-
 const CashFlowStatement = (props: Props) => {
   //Get symbol
   const symbol = useOutletContext<string>();
@@ -58,7 +58,7 @@ const CashFlowStatement = (props: Props) => {
   useEffect(() => {
     const getCISdata = async () => {
       const data = await getCashflowStatement(symbol);
-      console.log(data!.data)
+      console.log(data!.data);
       setCashFlowStatementData(data!.data);
     };
     getCISdata();
@@ -67,9 +67,12 @@ const CashFlowStatement = (props: Props) => {
   return (
     <>
       {cashFlowStatementData ? (
-        <Table data={cashFlowStatementData} config={config} />
+        <>
+          <h2 className="font-bold ms-4">CashFlow Statement</h2>
+          <Table data={cashFlowStatementData} config={config} />
+        </>
       ) : (
-        <h1>Loading...</h1>
+        <Spinners />
       )}
     </>
   );

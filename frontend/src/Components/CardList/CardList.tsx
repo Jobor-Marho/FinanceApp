@@ -1,5 +1,6 @@
 import type { CompanySearch, Dummies } from "../../company.d";
 import Card from "../Card/Card";
+import Spinners from "../Spinners/Spinners";
 import "./CardList.css";
 import { v4 as uuid } from "uuid";
 
@@ -31,6 +32,7 @@ const CardList = ({ searchResults, portfolioCreateHandler }: Props) => {
             <p className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">
               No data found 🥹
             </p>
+            
         )}
 
         </div>
