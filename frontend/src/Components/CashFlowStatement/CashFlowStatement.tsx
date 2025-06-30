@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getCashflowStatement, getIncomeStatement } from "../../api";
 import Table from "../Table/Table";
 import Spinners from "../Spinners/Spinners";
+import { formatLargeMonetaryNumber } from "../../Helpers/NumbersFormatter";
 
 type Props = {};
 
@@ -14,33 +15,38 @@ const config = [
   },
   {
     label: "Operating Cashflow",
-    render: (company: CompanyCashFlow) => company.operatingCashFlow,
+    render: (company: CompanyCashFlow) =>
+      formatLargeMonetaryNumber(company.operatingCashFlow),
   },
   {
     label: "Investing Cashflow",
     render: (company: CompanyCashFlow) =>
-      company.netCashProvidedByInvestingActivities,
+      formatLargeMonetaryNumber(company.netCashProvidedByInvestingActivities),
   },
   {
     label: "Financing Cashflow",
     render: (company: CompanyCashFlow) =>
-      company.netCashProvidedByFinancingActivities,
+      formatLargeMonetaryNumber(company.netCashProvidedByFinancingActivities),
   },
   {
     label: "Cash At End of Period",
-    render: (company: CompanyCashFlow) => company.cashAtEndOfPeriod,
+    render: (company: CompanyCashFlow) =>
+      formatLargeMonetaryNumber(company.cashAtEndOfPeriod),
   },
   {
     label: "CapEX",
-    render: (company: CompanyCashFlow) => company.capitalExpenditure,
+    render: (company: CompanyCashFlow) =>
+      formatLargeMonetaryNumber(company.capitalExpenditure),
   },
   {
     label: "Issuance Of Stock",
-    render: (company: CompanyCashFlow) => company.commonStockIssuance,
+    render: (company: CompanyCashFlow) =>
+      formatLargeMonetaryNumber(company.commonStockIssuance),
   },
   {
     label: "Free Cash Flow",
-    render: (company: CompanyCashFlow) => company.freeCashFlow,
+    render: (company: CompanyCashFlow) =>
+      formatLargeMonetaryNumber(company.freeCashFlow),
   },
 ];
 
@@ -56,12 +62,12 @@ const CashFlowStatement = (props: Props) => {
   // Load up the data from the API
 
   useEffect(() => {
-    const getCISdata = async () => {
+    const getCFSdata = async () => {
       const data = await getCashflowStatement(symbol);
       console.log(data!.data);
       setCashFlowStatementData(data!.data);
     };
-    getCISdata();
+    getCFSdata();
   }, []);
 
   return (
@@ -69,7 +75,10 @@ const CashFlowStatement = (props: Props) => {
       {cashFlowStatementData ? (
         <>
           <h2 className="font-bold ms-4">CashFlow Statement</h2>
-          <Table data={cashFlowStatementData} config={config} />
+
+          <div className="overflow-x-auto  max-w-4/6">
+            <Table data={cashFlowStatementData} config={config} />
+          </div>
         </>
       ) : (
         <Spinners />

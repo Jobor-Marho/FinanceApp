@@ -15,7 +15,7 @@ export interface CompanyProfile {
   price: number;
   beta: number;
   volAvg: number;
-  mktCap: number;
+  marketCap: number;
   lastDiv: number;
   range: string;
   changes: number;
@@ -47,7 +47,12 @@ export interface CompanyProfile {
   isAdr: boolean;
   isFund: boolean;
 }
-
+export interface CompanyDCF{
+  symbol: string;
+  date: string;
+  dcf: number;
+  StockPrice: number;
+}
 export interface CompanyKeyRatios {
   dividendYielTTM: number;
   dividendYielPercentageTTM: number;
@@ -268,7 +273,6 @@ export interface CompanyCashFlow {
   finalLink?: string;
 }
 
-
 export interface CompanyKeyMetrics {
   revenuePerShareTTM: number;
   netIncomePerShareTTM: number;
@@ -354,7 +358,7 @@ export interface CompanyCompData {
 
 export interface CompanyTenK {
   symbol: string;
-  fillingDate: string;
+  filingDate: string;
   acceptedDate: string;
   cik: string;
   type: string;

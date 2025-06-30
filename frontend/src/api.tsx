@@ -6,6 +6,7 @@ import {
   type CompanySearch,
   type CompanyCashFlow,
   type CompanyTenK,
+  type CompanyDCF,
 } from "./company.d";
 
 const today = new Date();
@@ -27,7 +28,7 @@ export const searchCompanies = async (
         import.meta.env.VITE_API_KEY
       }`
     );
-
+    console.log(response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -111,18 +112,35 @@ export const getCashflowStatement = async (query: string) => {
   }
 };
 
-
 //SEC filings 10-k API
 export const getTenk = async (query: string) => {
-  try{
-    const res = axios.get<CompanyTenK[]>(`https://financialmodelingprep.com/stable/sec-filings-search/symbol?symbol=${query}&from=${fromDate}&to=${toDate}&page=0&limit=10&apikey=${import.meta.env.VITE_API_KEY}`);
+  try {
+    const res = axios.get<CompanyTenK[]>(
+      `https://financialmodelingprep.com/stable/sec-filings-search/symbol?symbol=${query}&from=${fromDate}&to=${toDate}&page=0&limit=10&apikey=${
+        import.meta.env.VITE_API_KEY
+      }`
+    );
     return res;
-  } catch (error:any){
+  } catch (error: any) {
     console.log("Error Msg: ", error.message);
   }
-}
+};
+
+// DCF API
+export const getDCF = async (query: string) => {
+  try {
+    const res = axios.get<CompanyDCF[]>(
+      `https://financialmodelingprep.com/stable/discounted-cash-flow?symbol=${query}&apikey=${
+        import.meta.env.VITE_API_KEY
+      }`
+    );
+    return res;
+  } catch (error: any) {
+    console.log("Error Msg:", error.message);
+  }
+};
 // API to Generate image URL based on the company name
-export const generateImageUrl = (companyName: string) => {
+export const generateImageUrl = async (companyName: string) => {
   const encodedName = encodeURIComponent(companyName.trim());
   return `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&bold=true`;
 };

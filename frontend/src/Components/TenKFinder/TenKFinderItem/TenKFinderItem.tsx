@@ -6,13 +6,14 @@ type Props = {
 };
 
 const TenKFinderItem = ({ tenK }: Props) => {
-  const fillingDate = new Date(tenK.fillingDate).getFullYear();
+  const fillingDate = new Date(tenK.filingDate).getFullYear();
+
   return (
     <Link
       reloadDocument
       to={tenK.finalLink}
       type="button"
-      className="inline-flex items-center px-4 py-2 text-sm font-medium text-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-red-500 dark:focus:text-white me-2"
+      className="inline-flex items-center px-4 py-2 text-sm font-medium text-white border  rounded-l-lg hover:bg-gray-100 bg-green-500 dark:border-gray-200 dark:text-white dark:hover:text-white dark:hover:bg-green-400 dark:focus:ring-red-500 dark:focus:text-white me-2"
     >
       {" "}
       10k - {tenK.symbol} - {fillingDate}

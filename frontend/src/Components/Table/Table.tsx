@@ -1,6 +1,4 @@
-import { testIncomeStatementData } from "./TestData";
 import { v4 as uuid } from "uuid";
-const data = testIncomeStatementData;
 
 interface Props {
   data?: any;
@@ -13,11 +11,7 @@ const Table = ({ data, config }: Props) => {
     return (
       <tr key={company.cik}>
         {config.map((val: any) => {
-          return (
-            <td className="p-4 whitespace-nowrap text-sm text-gray-900 font-light">
-              {val.render(company)}
-            </td>
-          );
+          return <td className="p-3">{val.render(company)}</td>;
         })}
       </tr>
     );
@@ -27,7 +21,7 @@ const Table = ({ data, config }: Props) => {
   const renderHeaders = config.map((config: any) => {
     return (
       <th
-        className="p-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+        className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
         key={uuid()}
       >
         {config.label}
@@ -36,8 +30,8 @@ const Table = ({ data, config }: Props) => {
   });
 
   return (
-    <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
-      <table>
+    <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+      <table className="min-w-max table-auto text-sm">
         <thead className="min-w-full divide-y divide-gray-200 m-5">
           {renderHeaders}
         </thead>
