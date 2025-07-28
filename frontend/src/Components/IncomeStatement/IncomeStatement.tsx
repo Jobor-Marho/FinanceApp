@@ -81,26 +81,47 @@ const IncomeStatement = (props: Props) => {
   const symbol = useOutletContext<string>();
   const [incomeStatementData, setIncomeStatementData] =
     useState<CompanyIncomeStatement[]>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     const getIncomeStatements = async () => {
-      const res = await getIncomeStatement(symbol);
-      setIncomeStatementData(res?.data);
+      try {
+        const res = await getIncomeStatement(symbol);
+        setIncomeStatementData(res?.data);
+        setLoading(false)
+      } catch (error) {
+        setError(true);
+        setLoading(false);
+      }
     };
     getIncomeStatements();
   }, []);
 
+  useEffect(() =>{
+    const timeout = setTimeout(() => {
+      if (!incomeStatementData){
+        setLoading(false)
+        setError(true)
+      }
+    }, 5000);
+
+    return () => clearTimeout(timeout)
+  })
+
   return (
     <>
-      {incomeStatementData ? (
+      {loading ? (
+        <Spinners />
+      ) : error || !incomeStatementData ? (
+        <div>Error rendering incomestatement</div>
+      ) : (
         <>
           <h2 className="font-bold ms-4">Income Statement</h2>
           <div className="overflow-x-auto  max-w-4/6">
             <Table data={incomeStatementData} config={configs} />
           </div>
         </>
-      ) : (
-        <Spinners />
       )}
     </>
   );
