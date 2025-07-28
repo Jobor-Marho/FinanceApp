@@ -85,27 +85,49 @@ const BalanceSheet = (props: Props) => {
   const [balanceSheetReportData, setBalanceSheetReportData] =
     useState<CompanyBalanceSheet>();
 
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+
   //Set Our Use Effect to actually call the API to fetch the data and set the value to our usestate container
   useEffect(() => {
     const getBalanceSheetData = async () => {
-      const res = await getBalanceSheet(symbol!);
-      console.log(res?.data);
-      console.log(res?.data[0]);
-      setBalanceSheetReportData(res?.data[0]);
+      try {
+        const res = await getBalanceSheet(symbol!);
+        console.log(res?.data);
+        console.log(res?.data[0]);
+        setBalanceSheetReportData(res?.data[0]);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setError(true);
+      }
     };
     getBalanceSheetData();
-  }, []);
+  }, [symbol]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!balanceSheetReportData) {
+        setError(true);
+        setLoading(false);
+      }
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  });
 
   return (
     <>
       <div id="bal-sheet">
-        {balanceSheetReportData ? (
+        {loading ? (
+          <Spinners />
+        ) : error || !balanceSheetReportData ? (
+          <div>Eroor rendering balance sheet data</div>
+        ) : (
           <>
             <h2 className="font-bold ms-4">Balance Sheet</h2>
             <RatioList data={balanceSheetReportData} config={config} />
           </>
-        ) : (
-          <Spinners />
         )}
       </div>
     </>
