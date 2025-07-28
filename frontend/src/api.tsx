@@ -140,7 +140,10 @@ export const getDCF = async (query: string) => {
   }
 };
 // API to Generate image URL based on the company name
-export const generateImageUrl = async (companyName: string) => {
+export const generateImageUrl = async (companyName: string): Promise<string> => {
   const encodedName = encodeURIComponent(companyName.trim());
+  console.log(
+    `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&bold=true`
+  );
   return `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&bold=true`;
 };

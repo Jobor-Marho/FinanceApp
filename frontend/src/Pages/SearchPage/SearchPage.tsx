@@ -9,6 +9,7 @@ import ListPortfolio from "../../Components/Portfolio/ListPortfolio/ListPortfoli
 interface Props {}
 
 const SearchPage = (props: Props) => {
+  // usestates
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchResults, setSearchResults] = useState<CompanySearch[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -34,7 +35,7 @@ const SearchPage = (props: Props) => {
       setError(null);
 
       setSearchResults(results);
-      
+
     } catch (err) {
       console.error("Search failed:", err);
       setSearchResults([]); // optional fallback
