@@ -13,10 +13,11 @@ interface Props {}
 
 const tableConfig = [
   {
-    label: "Market Cap",
+    label: "Enterprise Value (TTM)",
     render: (company: CompanyKeyMetrics) =>
-      formatLargeNonMonetaryNumber(company.marketCapTTM),
-    subTitle: "Total value of all a company's shares of stock",
+      formatLargeNonMonetaryNumber(company.enterpriseValueTTM),
+    subTitle:
+      "Total company value including equity, debt, and cash over the trailing 12 months.",
   },
   {
     label: "Current Ratio",
@@ -26,17 +27,17 @@ const tableConfig = [
       "Measures the companies ability to pay short term debt obligations",
   },
   {
-    label: "Return On Equity",
-    render: (company: CompanyKeyMetrics) => formatRatio(company.roeTTM),
-    subTitle:
-      "Return on equity is the measure of a company's net income divided by its shareholder's equity",
+    label: "Net Income Per Share TTM",
+    render: (company: CompanyKeyMetrics) =>
+      formatRatio(company.netIncomePerShareTTM),
+    subTitle: "Net Income Earned Per Share Over the Last 12 Months",
   },
   {
-    label: "Return On Assets",
+    label: "Tangible Book Value Per Share (TTM)",
     render: (company: CompanyKeyMetrics) =>
-      formatRatio(company.returnOnTangibleAssetsTTM),
+      formatRatio(company.tangibleBookValuePerShareTTM),
     subTitle:
-      "Return on assets is the measure of how effective a company is using its assets",
+      "The value of a company’s physical net assets allocated to each share over the past 12 months.",
   },
   {
     label: "Free Cashflow Per Share",
@@ -65,40 +66,51 @@ const tableConfig = [
     subTitle:
       "Capex is used by a company to aquire, upgrade, and maintain physical assets",
   },
-  {
-    label: "Graham Number",
-    render: (company: CompanyKeyMetrics) =>
-      formatRatio(company.grahamNumberTTM),
-    subTitle:
-      "This is the upperbouind of the price range that a defensive investor should pay for a stock",
-  },
-  {
-    label: "PE Ratio",
-    render: (company: CompanyKeyMetrics) => formatRatio(company.peRatioTTM),
-    subTitle:
-      "This is the upperbouind of the price range that a defensive investor should pay for a stock",
-  },
+
 ];
 
 const CompanyProfile = (props: Props) => {
   const symbol = useOutletContext<string>();
   const [companyData, setCompanyData] = useState<CompanyKeyMetrics>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     const getCompanyKeyMetrics = async () => {
-      const res = await getCompanyMetrics(symbol);
-      setCompanyData(res?.data[0]);
+      try {
+        const res = await getCompanyMetrics(symbol);
+        setCompanyData(res?.data[0]);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setError(true);
+      }
     };
     getCompanyKeyMetrics();
-  }, []);
+  }, [symbol]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!companyData) {
+        setLoading(false);
+        setError(true);
+      }
+    }, 5000);
+    return () => clearTimeout(timeout);
+  }, [companyData]);
+
   return (
     <>
-      {companyData ? (
+      {loading ? (
+        <Spinners />
+      ) : error || !companyData ? (
+        <>
+          <div>Error displaying company data</div>
+        </>
+      ) : (
         <>
           <RatioList data={companyData} config={tableConfig} />
         </>
-      ) : (
-        <Spinners />
       )}
     </>
   );

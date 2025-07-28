@@ -63,7 +63,7 @@ export const getCompanyMetrics = async (query: string) => {
         import.meta.env.VITE_API_KEY
       }`
     );
-
+    console.log(res);
     return res;
   } catch (error: any) {
     console.log("error message: ", error.message);
@@ -140,10 +140,9 @@ export const getDCF = async (query: string) => {
   }
 };
 // API to Generate image URL based on the company name
-export const generateImageUrl = async (companyName: string): Promise<string> => {
+export const generateImageUrl = async (
+  companyName: string
+): Promise<string> => {
   const encodedName = encodeURIComponent(companyName.trim());
-  console.log(
-    `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&bold=true`
-  );
   return `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&bold=true`;
 };
