@@ -59,20 +59,44 @@ const CashFlowStatement = (props: Props) => {
   const [cashFlowStatementData, setCashFlowStatementData] =
     useState<CompanyCashFlow[]>();
 
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] =  useState<boolean>(false);
+
   // Load up the data from the API
 
   useEffect(() => {
     const getCFSdata = async () => {
+      try{
       const data = await getCashflowStatement(symbol);
       console.log(data!.data);
-      setCashFlowStatementData(data!.data);
+      setCashFlowStatementData(data!.data)
+      setLoading(false);}
+      catch(error){
+        setLoading(false)
+        setError(true)
+      }
     };
     getCFSdata();
   }, []);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!cashFlowStatementData){
+        setLoading(false);
+        setError(true);
+      }
+    }, 5000);
+
+    return () => clearTimeout(timeout)
+  })
+
   return (
     <>
-      {cashFlowStatementData ? (
+      {loading ? (
+        <Spinners />
+      ) : error || !cashFlowStatementData ? (
+        <div>Error rendering cash flow statement</div>
+      ) : (
         <>
           <h2 className="font-bold ms-4">CashFlow Statement</h2>
 
@@ -80,8 +104,6 @@ const CashFlowStatement = (props: Props) => {
             <Table data={cashFlowStatementData} config={config} />
           </div>
         </>
-      ) : (
-        <Spinners />
       )}
     </>
   );
