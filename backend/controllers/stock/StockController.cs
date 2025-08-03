@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using backend.interfaces;
 using backend.models;
+using backend.Dtos.stockdto;
+using backend.mappers.stockmappers;
 
 namespace backend.controllers
 {
@@ -27,14 +29,14 @@ namespace backend.controllers
             {
                 return NotFound();
             }
-            return Ok(stock);
+            return Ok(stock.ToStockDto());
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Stock>>> GetAllStocks()
         {
             var stocks = await _stockRepo.GetAllStocksAsync();
-            return Ok(stocks);
+            return Ok(stocks.Select(s => s.ToStockDto()));
         }
 
     }
