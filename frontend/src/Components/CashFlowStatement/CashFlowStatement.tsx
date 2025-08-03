@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router-dom";
 import type { CompanyCashFlow } from "../../company.d";
 import { useEffect, useState } from "react";
-import { getCashflowStatement, getIncomeStatement } from "../../api";
+import { getCashflowStatement } from "../../api";
 import Table from "../Table/Table";
 import Spinners from "../Spinners/Spinners";
 import { formatLargeMonetaryNumber } from "../../Helpers/NumbersFormatter";
@@ -60,20 +60,20 @@ const CashFlowStatement = (props: Props) => {
     useState<CompanyCashFlow[]>();
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] =  useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   // Load up the data from the API
 
   useEffect(() => {
     const getCFSdata = async () => {
-      try{
-      const data = await getCashflowStatement(symbol);
-      console.log(data!.data);
-      setCashFlowStatementData(data!.data)
-      setLoading(false);}
-      catch(error){
-        setLoading(false)
-        setError(true)
+      try {
+        const data = await getCashflowStatement(symbol);
+        console.log(data!.data);
+        setCashFlowStatementData(data!.data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setError(true);
       }
     };
     getCFSdata();
@@ -81,14 +81,14 @@ const CashFlowStatement = (props: Props) => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (!cashFlowStatementData){
+      if (!cashFlowStatementData) {
         setLoading(false);
         setError(true);
       }
     }, 5000);
 
-    return () => clearTimeout(timeout)
-  })
+    return () => clearTimeout(timeout);
+  });
 
   return (
     <>
