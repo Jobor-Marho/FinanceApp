@@ -1,0 +1,4 @@
+{
+  "dotnet.server.path": "/usr/local/bin/dotnet",
+  "FSharp.dotnetRoot": "/usr/local/share/dotnet"
+}
