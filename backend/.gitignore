@@ -1,0 +1,9 @@
+/.env
+/note
+/obj
+/bin
+/Properties
+/Migrations
+/appsettings.Development.json
+/appsettings.json
+/backend.http
