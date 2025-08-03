@@ -8,6 +8,8 @@ using backend.models;
 
 namespace backend.controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class StockController : ControllerBase
     {
         private readonly IStockRepo _stockRepo;
@@ -18,7 +20,7 @@ namespace backend.controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult<Stock>> GetStock(int id)
+        public async Task<ActionResult<Stock>> GetStock(int id)
         {
             var stock = await _stockRepo.GetStockByIdAsync(id);
             if (stock == null)
@@ -29,7 +31,7 @@ namespace backend.controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult<IEnumerable<Stock>>> GetAllStocks()
+        public async Task<ActionResult<IEnumerable<Stock>>> GetAllStocks()
         {
             var stocks = await _stockRepo.GetAllStocksAsync();
             return Ok(stocks);

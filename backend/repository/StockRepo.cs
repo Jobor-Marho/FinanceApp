@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.interfaces;
+using backend.models;
+using backend.data;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.repository
 {
@@ -13,10 +16,10 @@ namespace backend.repository
         private readonly ApplicationDBContext _context;
         public StockRepo(ApplicationDBContext context)
         {
-            _context = context
+            _context = context;
         }
 
-        public async Task<Stock> GetStockByIdAsync(int id)
+        public async Task<Stock?> GetStockByIdAsync(int id)
         {
             return await _context.Stocks.FindAsync(id);
         }

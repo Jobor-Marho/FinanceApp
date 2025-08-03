@@ -2,10 +2,17 @@ using Microsoft.OpenApi.Models;
 using DotNetEnv;
 using backend.data;
 using Microsoft.EntityFrameworkCore;
+using backend.interfaces;
+using backend.repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Added the controllers service to the DI container
+builder.Services.AddControllers();
+// Register the StockRepo as a service for dependency injection
+builder.Services.AddScoped<IStockRepo, StockRepo>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -30,6 +37,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FinanceAppBackend v1"));
 }
 
+
+app.MapControllers();
 app.UseHttpsRedirection();
 
 
