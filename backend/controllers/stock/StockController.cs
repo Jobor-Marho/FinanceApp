@@ -22,7 +22,7 @@ namespace backend.controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Stock>> GetStock(int id)
+        public async Task<ActionResult<Stock>> GetStockById(int id)
         {
             var stock = await _stockRepo.GetStockByIdAsync(id);
             if (stock == null)
@@ -37,6 +37,30 @@ namespace backend.controllers
         {
             var stocks = await _stockRepo.GetAllStocksAsync();
             return Ok(stocks.Select(s => s.ToStockDto()));
+        }
+
+        [HttpPost("create")]
+        public async Task<ActionResult> CreateStock([FromBody] CreateStockDto requestDto)
+        {
+            var newStock = requestDto.ToStockOnCreate();
+
+            try{
+                if(await _stockRepo.GetStockBySymbolAsync(newStock.Symbol) != null)
+                {
+                    return BadRequest($"{newStock.Symbol} already exists. Please reconfirm the symbol and try again");
+                };
+
+                await _stockRepo.AddStockAsync(newStock);
+
+                return CreatedAtAction(nameof(GetStockById), new {id = newStock.Id}, newStock);
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+
+
         }
 
     }

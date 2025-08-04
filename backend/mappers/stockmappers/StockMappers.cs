@@ -10,6 +10,7 @@ namespace backend.mappers.stockmappers
     // Mappers connect a model to its dto
     public static class StockMappers
     {
+        // Stock Extenstion to convert stock object to a stockdto
         public static StockDto ToStockDto(this Stock stockModel)
         {
             return new StockDto
@@ -21,7 +22,21 @@ namespace backend.mappers.stockmappers
                 LastDiv = stockModel.LastDiv,
                 Industry = stockModel.Industry,
                 MarketCap = stockModel.MarketCap
-        };
+            };
         }
+
+        public static Stock ToStockOnCreate(this CreateStockDto obj)
+        {
+            return new Stock
+            {
+                Symbol = obj.Symbol,
+                CompanyName = obj.CompanyName,
+                Purchase = obj.Purchase,
+                LastDiv = obj.LastDiv,
+                Industry = obj.Industry,
+                MarketCap = obj.MarketCap
+            };
+        }
+
     }
 }

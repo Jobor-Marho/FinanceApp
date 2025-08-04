@@ -23,7 +23,10 @@ namespace backend.repository
         {
             return await _context.Stocks.FindAsync(id);
         }
-
+        public async Task<Stock?> GetStockBySymbolAsync(string Symbol)
+        {
+            return await _context.Stocks.FirstOrDefaultAsync(s => s.Symbol.ToLower() == Symbol.ToLower());
+        }
         public async Task<IEnumerable<Stock>> GetAllStocksAsync()
         {
             return await _context.Stocks.ToListAsync();
