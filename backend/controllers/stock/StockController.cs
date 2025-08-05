@@ -62,6 +62,25 @@ namespace backend.controllers
 
 
         }
+        [HttpPut("update/{id}")]
+        public async Task<ActionResult> UpdateStock(int id, [FromBody] CreateStockDto updatedStock)
+        {
+            var existingStock = await _stockRepo.GetStockByIdAsync(id);
+            if (existingStock == null)
+            {
+                return NotFound();
+            }
+            existingStock.Symbol = updatedStock.Symbol;
+            existingStock.CompanyName = updatedStock.CompanyName;
+            existingStock.Purchase = updatedStock.Purchase;
+            existingStock.LastDiv = updatedStock.LastDiv;
+            existingStock.Industry = updatedStock.Industry;
+            existingStock.MarketCap = updatedStock.MarketCap;
+
+            await _stockRepo.UpdateStockAsync(existingStock);
+
+            return Ok("Stock has been updated successfully!");
+        }
 
     }
 }
