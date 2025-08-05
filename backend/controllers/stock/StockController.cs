@@ -82,5 +82,19 @@ namespace backend.controllers
             return Ok("Stock has been updated successfully!");
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult> DeleteStock([FromRoute] int id)
+        {
+            var stock = await _stockRepo.GetStockByIdAsync(id);
+
+            if( stock == null)
+            {
+                return NotFound();
+            }
+            await _stockRepo.DeleteStockAsync(stock);
+            return Ok("Stock has been deleted!");
+        }
+
     }
 }

@@ -10,6 +10,6 @@ namespace backend.interfaces
         Task<IEnumerable<Stock>> GetAllStocksAsync();
         Task AddStockAsync(Stock stock);
         Task UpdateStockAsync(Stock stock);
-        Task DeleteStockAsync(int id);
+        Task DeleteStockAsync(Stock stock);
     }
 }

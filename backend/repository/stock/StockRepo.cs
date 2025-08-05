@@ -41,15 +41,10 @@ namespace backend.repository
             _context.Stocks.Update(stock);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteStockAsync(int id)
+        public async Task DeleteStockAsync(Stock stock)
         {
-            var stock = await _context.Stocks.FindAsync(id);
-            if (stock != null)
-            {
-                _context.Stocks.Remove(stock);
-                await _context.SaveChangesAsync();
-
-            }
+             _context.Stocks.Remove(stock);
+            await _context.SaveChangesAsync();
         }
     }
 }
