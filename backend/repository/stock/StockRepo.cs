@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using backend.interfaces;
+using backend.interfaces.stock;
 using backend.models;
 using backend.data;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.repository
+namespace backend.repository.stock
 {
     // This class implements the IStockRepo interface and provides methods to interact with the stock data.
     // It uses the ApplicationDBContext to perform CRUD operations on the Stock entity.

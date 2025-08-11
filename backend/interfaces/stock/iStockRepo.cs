@@ -1,7 +1,7 @@
 using System;
 using backend.models;
 
-namespace backend.interfaces
+namespace backend.interfaces.stock
 {
     public interface IStockRepo
     {

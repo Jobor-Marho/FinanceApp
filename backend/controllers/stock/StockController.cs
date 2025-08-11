@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using backend.interfaces;
+using backend.interfaces.stock;
 using backend.models;
 using backend.Dtos.stockdto;
 using backend.mappers.stockmappers;
 
-namespace backend.controllers
+namespace backend.controllers.stock
 {
     [Route("api/[controller]")]
     [ApiController]
