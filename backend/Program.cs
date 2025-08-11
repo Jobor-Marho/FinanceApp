@@ -2,6 +2,8 @@ using Microsoft.OpenApi.Models;
 using DotNetEnv;
 using backend.data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using backend.interfaces.stock;
 using backend.interfaces.comment;
 using backend.repository.stock;
@@ -25,10 +27,21 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "FinanceAppBackend", Version = "v1" });
 });
+
+builder.Services
+    .AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling =
+            Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
+
 //Linking the databse to our code
 // Load environment variables from .env file
 Env.Load();
 string? connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+
+
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => {
     options.UseSqlServer(connectionString!);

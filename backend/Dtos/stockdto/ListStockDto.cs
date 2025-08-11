@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backend.Dtos.commentdto;
 
 namespace backend.Dtos.stockdto
 {
@@ -19,5 +20,7 @@ namespace backend.Dtos.stockdto
         public string Industry { get; set; } = string.Empty;
 
         public long MarketCap { get; set; }
+
+        public List<CommentDto?>? Comments { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace backend.repository.stock
 
         public async Task<Stock?> GetStockByIdAsync(int id)
         {
-            return await _context.Stocks.FindAsync(id);
+            return await _context.Stocks.Include(c => c.Comments).FirstOrDefaultAsync(s => s.Id == id);
         }
         public async Task<Stock?> GetStockBySymbolAsync(string Symbol)
         {
@@ -29,7 +29,7 @@ namespace backend.repository.stock
         }
         public async Task<IEnumerable<Stock>> GetAllStocksAsync()
         {
-            return await _context.Stocks.ToListAsync();
+            return await _context.Stocks.Include(c => c.Comments).ToListAsync();
         }
         public async Task AddStockAsync(Stock stock)
         {

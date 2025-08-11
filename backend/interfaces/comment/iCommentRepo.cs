@@ -10,5 +10,6 @@ namespace backend.interfaces.comment
     public interface ICommentRepo
     {
         Task<IEnumerable<CommentDto>> GetAllCommentsAsync();
+        Task<CommentDto?> GetCommentByIdAsync(int id);
     }
 }

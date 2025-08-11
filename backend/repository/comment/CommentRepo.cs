@@ -26,5 +26,13 @@ namespace backend.repository.comment
             return comments.Select(c => c.ToCommentDto());
 
         }
+
+        public async Task<CommentDto?> GetCommentByIdAsync(int id){
+            var comment = await _context.Comments.FindAsync(id);
+            if(comment == null){
+                return null;
+            }
+            return comment.ToCommentDto();
+        }
     }
 }

@@ -33,5 +33,15 @@ namespace backend.controllers.comment
         }
 
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CommentDto>> GetCommentByID(int id){
+            var comment = await _repo.GetCommentByIdAsync(id);
+
+            if(comment == null){
+                return NotFound();
+            }
+            return Ok(comment);
+        }
+
     }
 }
