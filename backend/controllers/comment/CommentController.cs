@@ -9,6 +9,7 @@ using backend.models;
 using backend.interfaces.comment;
 using backend.interfaces.stock;
 using backend.Dtos.commentdto;
+using backend.mappers.commentmappers;
 
 namespace backend.controllers.comment
 {
@@ -38,7 +39,7 @@ namespace backend.controllers.comment
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CommentDto>> GetCommentByID(int id){
-            var comment = await _repo.GetCommentByIdAsync(id);
+            var comment = await _repo.GetCommentThroughDtoByIdAsync(id);
 
             if(comment == null){
                 return NotFound();
@@ -56,6 +57,19 @@ namespace backend.controllers.comment
             await _repo.CreateCommentAsync(id, newComment);
 
             return Ok(newComment);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteComment(int id)
+        {
+            var comment = await _repo.GetCommentByIdAsync(id);
+            if (comment == null)
+            {
+                return NotFound($"Comment with id:{id} does not exist.");
+            }
+            await _repo.DeleteCommentAsync(comment);
+
+            return NoContent();
         }
     }
 }

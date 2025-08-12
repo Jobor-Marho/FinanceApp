@@ -27,12 +27,20 @@ namespace backend.repository.comment
 
         }
 
-        public async Task<CommentDto?> GetCommentByIdAsync(int id){
+        public async Task<CommentDto?> GetCommentThroughDtoByIdAsync(int id){
             var comment = await _context.Comments.FindAsync(id);
             if(comment == null){
                 return null;
             }
             return comment.ToCommentDto();
+        }
+
+        public async Task<Comment?> GetCommentByIdAsync(int id){
+            var comment = await _context.Comments.FindAsync(id);
+            if(comment == null){
+                return null;
+            }
+            return comment;
         }
 
         public async Task<CreateCommentDto> CreateCommentAsync(int stockId, CreateCommentDto newCommentDto){
@@ -42,6 +50,12 @@ namespace backend.repository.comment
             await _context.SaveChangesAsync();
 
             return newCommentDto;
+        }
+
+        public async Task DeleteCommentAsync(Comment comment)
+        {
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
         }
     }
 }
