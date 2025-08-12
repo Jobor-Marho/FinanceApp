@@ -46,5 +46,10 @@ namespace backend.repository.stock
              _context.Stocks.Remove(stock);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<bool> StockExists(int stockId)
+        {
+            return await _context.Stocks.AnyAsync(stock => stock.Id == stockId);
+        }
     }
 }

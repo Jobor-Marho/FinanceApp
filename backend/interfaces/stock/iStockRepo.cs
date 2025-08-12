@@ -11,5 +11,6 @@ namespace backend.interfaces.stock
         Task AddStockAsync(Stock stock);
         Task UpdateStockAsync(Stock stock);
         Task DeleteStockAsync(Stock stock);
+        Task<bool> StockExists(int stockId)
     }
 }
