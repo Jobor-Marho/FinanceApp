@@ -34,5 +34,14 @@ namespace backend.repository.comment
             }
             return comment.ToCommentDto();
         }
+
+        public async Task<CreateCommentDto> CreateCommentAsync(int stockId, CreateCommentDto newCommentDto){
+            var newComment = newCommentDto.ToComment(stockId);
+
+            await _context.AddAsync(newComment);
+            await _context.SaveChangesAsync();
+
+            return newCommentDto;
+        }
     }
 }

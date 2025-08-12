@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using backend.models;
 using backend.interfaces.comment;
+using backend.interfaces.stock;
 using backend.Dtos.commentdto;
 
 namespace backend.controllers.comment
@@ -15,10 +16,12 @@ namespace backend.controllers.comment
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepo _repo;
+        private readonly IStockRepo _stockRepo;
 
-        public CommentController(ICommentRepo repo)
+        public CommentController(ICommentRepo repo, IStockRepo stockrepo)
         {
             _repo = repo;
+            _stockRepo = stockrepo;
         }
 
 
@@ -43,5 +46,16 @@ namespace backend.controllers.comment
             return Ok(comment);
         }
 
+        [HttpPost]
+        [Route("{id}")]
+        public async Task<ActionResult<CreateCommentDto>> CreateComment([FromRoute] int id, [FromBody] CreateCommentDto newComment){
+            if (! await _stockRepo.StockExists(id)){
+                return NotFound($"Stock with id:{id} does not exist.");
+            }
+
+            await _repo.CreateCommentAsync(id, newComment);
+
+            return Ok(newComment);
+        }
     }
 }
