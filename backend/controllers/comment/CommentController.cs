@@ -14,6 +14,7 @@ using backend.mappers.commentmappers;
 namespace backend.controllers.comment
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepo _repo;
