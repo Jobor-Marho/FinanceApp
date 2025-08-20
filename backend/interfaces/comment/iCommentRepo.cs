@@ -12,7 +12,8 @@ namespace backend.interfaces.comment
     {
         Task<IEnumerable<CommentDto>> GetAllCommentsAsync();
         Task<CommentDto?> GetCommentThroughDtoByIdAsync(int id);
-        Task<Comment> GetCommentByIdAsync(int id);
+        Task<Comment> UpdateCommentAsync(Comment updatedComment);
+        Task<Comment?> GetCommentByIdAsync(int id);
         Task<CreateCommentDto> CreateCommentAsync(int stockId, CreateCommentDto newCommentDto);
         Task DeleteCommentAsync(Comment comment);
     }

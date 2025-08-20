@@ -52,6 +52,13 @@ namespace backend.repository.comment
             return newCommentDto;
         }
 
+        public async Task<Comment> UpdateCommentAsync(Comment updatedComment){
+            _context.Comments.Update(updatedComment);
+            await _context.SaveChangesAsync();
+
+            return updatedComment;
+        }
+
         public async Task DeleteCommentAsync(Comment comment)
         {
             _context.Comments.Remove(comment);

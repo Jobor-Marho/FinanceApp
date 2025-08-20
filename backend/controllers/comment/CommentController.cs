@@ -37,7 +37,7 @@ namespace backend.controllers.comment
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<CommentDto>> GetCommentByID(int id){
             var comment = await _repo.GetCommentThroughDtoByIdAsync(id);
 
@@ -48,7 +48,7 @@ namespace backend.controllers.comment
         }
 
         [HttpPost]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<ActionResult<CreateCommentDto>> CreateComment([FromRoute] int id, [FromBody] CreateCommentDto newComment){
             if (! await _stockRepo.StockExists(id)){
                 return NotFound($"Stock with id:{id} does not exist.");
@@ -59,7 +59,23 @@ namespace backend.controllers.comment
             return Ok(newComment);
         }
 
-        [HttpDelete("{id}")]
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<ActionResult<Comment>> UpdateComment([FromRoute] int id, [FromBody] CreateCommentDto updatedComment){
+            var comment = await _repo.GetCommentByIdAsync(id);
+            if (comment == null)
+            {
+                return NotFound($"Comment with id:{id} does not exist.");
+            }
+            comment.Title = updatedComment.Title;
+            comment.Content = updatedComment.Content;
+
+            var upcomment = await _repo.UpdateCommentAsync(comment);
+
+            return Ok(upcomment);
+        }
+
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteComment(int id)
         {
             var comment = await _repo.GetCommentByIdAsync(id);

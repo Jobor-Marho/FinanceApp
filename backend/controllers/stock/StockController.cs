@@ -21,7 +21,7 @@ namespace backend.controllers.stock
             _stockRepo = stockRepo;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<Stock>> GetStockById(int id)
         {
             var stock = await _stockRepo.GetStockByIdAsync(id);
@@ -62,7 +62,7 @@ namespace backend.controllers.stock
 
 
         }
-        [HttpPut("update/{id}")]
+        [HttpPut("update/{id:int}")]
         public async Task<ActionResult> UpdateStock(int id, [FromBody] CreateStockDto updatedStock)
         {
             var existingStock = await _stockRepo.GetStockByIdAsync(id);
@@ -83,7 +83,7 @@ namespace backend.controllers.stock
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<ActionResult> DeleteStock([FromRoute] int id)
         {
             var stock = await _stockRepo.GetStockByIdAsync(id);
