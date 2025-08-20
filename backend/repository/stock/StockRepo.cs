@@ -37,7 +37,9 @@ namespace backend.repository.stock
                 stocks = _context.Stocks.Where(s => s.CompanyName == query.CompanyName);
             }
 
-            return await stocks.ToListAsync();
+            // manual pagination logic
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+            return await stocks.Skip(skipNumber).Take(query.PageSize).ToListAsync();
 
         }
 
