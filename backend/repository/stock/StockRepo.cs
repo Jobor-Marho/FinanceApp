@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using backend.interfaces.stock;
 using backend.models;
 using backend.data;
+using backend.Helpers.stock;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.repository.stock
@@ -27,10 +28,19 @@ namespace backend.repository.stock
         {
             return await _context.Stocks.FirstOrDefaultAsync(s => s.Symbol.ToLower() == Symbol.ToLower());
         }
-        public async Task<IEnumerable<Stock>> GetAllStocksAsync()
+
+        public async Task<IEnumerable<Stock>> GetAllStocksAsync(QueryableObj query)
         {
-            return await _context.Stocks.Include(c => c.Comments).ToListAsync();
+            var stocks = _context.Stocks.Include(c => c.Comments).AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(query.CompanyName)){
+                stocks = _context.Stocks.Where(s => s.CompanyName == query.CompanyName);
+            }
+
+            return await stocks.ToListAsync();
+
         }
+
         public async Task AddStockAsync(Stock stock)
         {
             await _context.Stocks.AddAsync(stock);

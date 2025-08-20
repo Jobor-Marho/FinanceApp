@@ -7,6 +7,7 @@ using backend.interfaces.stock;
 using backend.models;
 using backend.Dtos.stockdto;
 using backend.mappers.stockmappers;
+using backend.Helpers.stock;
 
 namespace backend.controllers.stock
 {
@@ -33,9 +34,9 @@ namespace backend.controllers.stock
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Stock>>> GetAllStocks()
+        public async Task<ActionResult<IEnumerable<Stock>>> GetAllStocks([FromQuery] QueryableObj query)
         {
-            var stocks = await _stockRepo.GetAllStocksAsync();
+            var stocks = await _stockRepo.GetAllStocksAsync(query);
             return Ok(stocks.Select(s => s.ToStockDto()));
         }
 
